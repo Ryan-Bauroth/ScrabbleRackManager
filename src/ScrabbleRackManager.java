@@ -7,11 +7,12 @@ import java.util.Scanner;
  * Scrabble Rack Manager
  * @version March 26 2022
  * @author Ryfi
+ * @extra has a blank tile option
  */
 public class ScrabbleRackManager {
     private ArrayList<ArrayList<String>> database;
-    private final String alpha = "abcdefghijklmnopqrstuvwxyz";
-    private final int[] occurrences = {9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1};
+    private final String alpha = "abcdefghijklmnopqrstuvwxyz ";
+    private final int[] occurrences = {9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2, 6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1, 2};
     private static final int[] values = {
             1, 3, 3, 2, 1, 4, 2, 4, 1, 8,
             5, 1, 3, 1, 1, 3, 10, 1, 1, 1,
@@ -29,15 +30,17 @@ public class ScrabbleRackManager {
                 bag.add(alpha.substring(i, i+1));
             }
         }
-        for(int i = 0; i < 7; i++){
-            int rand = (int) (Math.random() * bag.size());
-            rack.add(bag.get((rand)));
-            bag.remove(rand);
-            Collections.shuffle(bag);
-        }
         for(int i = 0; i < 26; i++){
             database.add(new ArrayList<>());
         }
+        //generateRack();
+        rack.add("h");
+        rack.add("e");
+        rack.add("l");
+        rack.add("l");
+        rack.add("o");
+        rack.add("a");
+        rack.add("r");
         try{
             Scanner in = new Scanner(new File("new_scrabble.txt"));
             while(in.hasNext()){
@@ -54,6 +57,14 @@ public class ScrabbleRackManager {
         }
     }
 
+    private void generateRack(){
+        for(int i = 0; i < 7; i++){
+            Collections.shuffle(bag);
+            int rand = (int) (Math.random() * bag.size());
+            rack.add(bag.get((rand)));
+            bag.remove(rand);
+        }
+    }
     /** displays the contents of the player's tile rack */
     public void printRack(){
         System.out.println("Letters in the tile rack: " + rack);
@@ -76,7 +87,7 @@ public class ScrabbleRackManager {
     private boolean isPlayable(String word){
         ArrayList<String> r = new ArrayList<>(rack);
         for(int i = 0; i < word.length(); i++){
-            if(!r.remove(word.substring(i, i+1)))
+            if(!r.remove(word.substring(i, i+1)) && !r.remove(" "))
                 return false;
         }
         return true;
@@ -87,7 +98,7 @@ public class ScrabbleRackManager {
         ArrayList<String> matches = getPlaylist();
         System.out.print("You can play the following words from the letters in your rack:");
         if(matches.size() == 0)
-            System.out.println("Sorry, NO words can be played from those tiles.");
+            System.out.println(" Sorry, NO words can be played from those tiles.");
         else{
             for (int i = 0; i < matches.size(); i++) {
                 int score = 0;
