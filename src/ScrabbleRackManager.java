@@ -33,14 +33,7 @@ public class ScrabbleRackManager {
         for(int i = 0; i < 26; i++){
             database.add(new ArrayList<>());
         }
-        //generateRack();
-        rack.add("h");
-        rack.add("e");
-        rack.add("l");
-        rack.add("l");
-        rack.add("o");
-        rack.add("a");
-        rack.add("r");
+        generateRack();
         try{
             Scanner in = new Scanner(new File("new_scrabble.txt"));
             while(in.hasNext()){
@@ -75,7 +68,7 @@ public class ScrabbleRackManager {
     public ArrayList<String> getPlaylist(){
         ArrayList<String> playlist = new ArrayList<>();
         for(ArrayList<String> bucket : database){
-            if(rack.contains(bucket.get(0).substring(0, 1))){
+            if(rack.contains(bucket.get(0).substring(0, 1)) || rack.contains(" ")){
                 for (String s : bucket) {
                     if (isPlayable(s))
                         playlist.add(s);
