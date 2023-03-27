@@ -21,6 +21,7 @@ public class ScrabbleRackManager {
     private ArrayList<String> bag;
     private ArrayList<String> rack;
 
+    /** class constructor */
     public ScrabbleRackManager(){
         database = new ArrayList<>();
         bag = new ArrayList<>();
@@ -62,6 +63,7 @@ public class ScrabbleRackManager {
     public void printRack(){
         System.out.println("Letters in the tile rack: " + rack);
     }
+
     /** builds and returns an ArrayList of String objects that are values pulled from
      * the dictionary/database based on the available letters in the user's tile
      * rack */
