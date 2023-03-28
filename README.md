@@ -1,0 +1,2 @@
+# ScrabbleRackManager
+- Swifties only
